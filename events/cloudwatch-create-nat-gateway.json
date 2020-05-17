@@ -1,0 +1,62 @@
+{
+  "version": "0",
+  "id": "f771ad59-3c89-393a-2278-a891352be18a",
+  "detail-type": "AWS API Call via CloudTrail",
+  "source": "aws.ec2",
+  "account": "534380204472",
+  "time": "2020-05-17T16:02:13Z",
+  "region": "eu-west-1",
+  "resources": [],
+  "detail": {
+      "eventVersion": "1.05",
+      "userIdentity": {
+          "type": "IAMUser",
+          "principalId": "AIDAJGNQG3QSXNNPJP4D6",
+          "arn": "arn:aws:iam::534380204472:user/mbrochard",
+          "accountId": "534380204472",
+          "accessKeyId": "ASIAXY24K2G4IN5YAHNE",
+          "userName": "mbrochard",
+          "sessionContext": {
+              "sessionIssuer": {},
+              "webIdFederationData": {},
+              "attributes": {
+                  "mfaAuthenticated": "false",
+                  "creationDate": "2020-05-17T09:08:42Z"
+              }
+          }
+      },
+      "eventTime": "2020-05-17T16:02:13Z",
+      "eventSource": "ec2.amazonaws.com",
+      "eventName": "CreateNatGateway",
+      "awsRegion": "eu-west-1",
+      "sourceIPAddress": "86.201.30.234",
+      "userAgent": "console.ec2.amazonaws.com",
+      "requestParameters": {
+          "CreateNatGatewayRequest": {
+              "AllocationId": "eipalloc-0b250dc27ba9d1a2a",
+              "SubnetId": "subnet-0372c2ce5d3f38acc"
+          }
+      },
+      "responseElements": {
+          "CreateNatGatewayResponse": {
+              "xmlns": "http://ec2.amazonaws.com/doc/2016-11-15/",
+              "natGateway": {
+                  "subnetId": "subnet-0372c2ce5d3f38acc",
+                  "natGatewayAddressSet": {
+                      "item": {
+                          "allocationId": "eipalloc-0b250dc27ba9d1a2a"
+                      }
+                  },
+                  "createTime": "2020-05-17T16:02:13.000Z",
+                  "vpcId": "vpc-07846d941edf4cee3",
+                  "natGatewayId": "nat-028e33ee82daafd22",
+                  "state": "pending"
+              },
+              "requestId": "6393743a-9bf1-411f-87bd-739eeffdc5e9"
+          }
+      },
+      "requestID": "6393743a-9bf1-411f-87bd-739eeffdc5e9",
+      "eventID": "a2ba6b64-c252-42cc-9ee1-752aff11971a",
+      "eventType": "AwsApiCall"
+  }
+}
