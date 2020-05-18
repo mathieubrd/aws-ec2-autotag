@@ -1,7 +1,7 @@
 const aws = require('aws-sdk')
 const ec2 = new aws.EC2()
 
-const handleRunInstances = async (event, userName) => {
+const handleRunInstances = async event => {
   const getInstancesVolumes =  async instanceIds => {
     const result = await ec2.describeVolumes({
       Filters: [{
@@ -19,21 +19,16 @@ const handleRunInstances = async (event, userName) => {
   return [...instanceIds, ...volumeIds]
 }
 
-const handleCreateNatGateway = async (event, userName) => {
+const handleCreateNatGateway = async event => {
   return [event['detail']['responseElements']['CreateNatGatewayResponse']['natGateway']['natGatewayId']]
 }
 
-const handleCreateSnapshot = async (event, userName) => {
+const handleCreateSnapshot = async event => {
   return [event['detail']['responseElements']['snapshotId']]
 }
 
 exports.handler = async (event, _) => {
   console.log(JSON.stringify(event))
-
-  const eventHandleMapping = [{
-    'RunInstances': handleRunInstances,
-    'CreateNatGateway': handleCreateNatGateway
-  }]
 
   const eventName = event['detail']['eventName']
   const userName = event['detail']['userIdentity']['userName']
