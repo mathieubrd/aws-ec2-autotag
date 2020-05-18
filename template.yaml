@@ -29,12 +29,13 @@ Resources:
               - Effect: Allow
                 Action:
                   - ec2:CreateTags
+                  - ec2:DescribeVolumes
                 Resource: "*"
 
   Function:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: ec2-autotag/
+      CodeUri: ec2-owner-autotag
       Handler: index.handler
       Role: !GetAtt Role.Arn
       Runtime: nodejs12.x
@@ -45,6 +46,7 @@ Resources:
               detail:
                 eventName:
                 - RunInstances
+                - CreateNatGateway
                 eventSource:
                 - ec2.amazonaws.com
               detail-type:
