@@ -40,7 +40,7 @@ Resources:
       Role: !GetAtt Role.Arn
       Runtime: nodejs12.x
       Events:
-        EventCloudTrailEC2:
+        EC2CreateResourceEvent:
           Properties:
             Pattern:
               detail:
