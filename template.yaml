@@ -47,6 +47,7 @@ Resources:
                 eventName:
                 - RunInstances
                 - CreateNatGateway
+                - CreateSnapshot
                 eventSource:
                 - ec2.amazonaws.com
               detail-type:

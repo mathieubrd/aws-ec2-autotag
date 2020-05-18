@@ -23,6 +23,10 @@ const handleCreateNatGateway = async (event, userName) => {
   return [event['detail']['responseElements']['CreateNatGatewayResponse']['natGateway']['natGatewayId']]
 }
 
+const handleCreateSnapshot = async (event, userName) => {
+  return [event['detail']['responseElements']['snapshotId']]
+}
+
 exports.handler = async (event, _) => {
   console.log(JSON.stringify(event))
 
@@ -39,6 +43,8 @@ exports.handler = async (event, _) => {
     resourceIds = await handleRunInstances(event, userName)
   } else if (eventName === 'CreateNatGateway') {
     resourceIds = await handleCreateNatGateway(event, userName)
+  } else if (event === 'CreateSnapshot') {
+    resourceIds = await handleCreateSnapshot(event, userName)
   }
 
   await ec2.createTags({
