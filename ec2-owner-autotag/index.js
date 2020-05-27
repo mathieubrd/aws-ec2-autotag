@@ -20,11 +20,15 @@ const handleRunInstances = async event => {
 }
 
 const handleCreateNatGateway = async event => {
-  return [event['detail']['responseElements']['CreateNatGatewayResponse']['natGateway']['natGatewayId']]
+  return event['detail']['responseElements']['CreateNatGatewayResponse']['natGateway']['natGatewayId']
 }
 
 const handleCreateSnapshot = async event => {
-  return [event['detail']['responseElements']['snapshotId']]
+  return event['detail']['responseElements']['snapshotId']
+}
+
+const handleCreateImage = async event => {
+  return event['detail']['responseElements']['imageId']
 }
 
 exports.handler = async (event, _) => {
@@ -35,11 +39,13 @@ exports.handler = async (event, _) => {
 
   let resourceIds = []
   if (eventName === 'RunInstances') {
-    resourceIds = await handleRunInstances(event, userName)
+    resourceIds = [await handleRunInstances(event)]
   } else if (eventName === 'CreateNatGateway') {
-    resourceIds = await handleCreateNatGateway(event, userName)
+    resourceIds = [await handleCreateNatGateway(event)]
   } else if (event === 'CreateSnapshot') {
-    resourceIds = await handleCreateSnapshot(event, userName)
+    resourceIds = [await handleCreateSnapshot(event)]
+  } else if (event == 'CreateImage') {
+    resourceIds = [await handleCreateImage(event)]
   }
 
   await ec2.createTags({

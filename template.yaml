@@ -3,7 +3,6 @@ Transform: AWS::Serverless-2016-10-31
 Description: >
   ec2-autotag
   
-# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
     Timeout: 60
@@ -48,6 +47,7 @@ Resources:
                 - RunInstances
                 - CreateNatGateway
                 - CreateSnapshot
+                - CreateImage
                 eventSource:
                 - ec2.amazonaws.com
               detail-type:
