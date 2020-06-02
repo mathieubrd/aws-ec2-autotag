@@ -1,0 +1,45 @@
+{
+  "version": "0",
+  "id": "f771ad59-3c89-393a-2278-a891352be18a",
+  "detail-type": "AWS API Call via CloudTrail",
+  "source": "aws.ec2",
+  "account": "534380204472",
+  "time": "2020-05-17T16:02:13Z",
+  "region": "eu-west-1",
+  "resources": [],
+  "detail": {
+    "eventVersion": "1.05",
+    "userIdentity": {
+      "type": "Root",
+      "principalId": "357627860126",
+      "arn": "arn:aws:iam::357627860126:root",
+      "accountId": "357627860126",
+      "accessKeyId": "ASIAVGRCICSPNWZH2MTL",
+      "userName": "awscloudinfraarchitect",
+      "sessionContext": {
+        "sessionIssuer": {},
+        "webIdFederationData": {},
+        "attributes": {
+          "mfaAuthenticated": "false",
+          "creationDate": "2020-05-29T09:39:01Z"
+        }
+      }
+    },
+    "eventTime": "2020-05-29T09:59:43Z",
+    "eventSource": "cloudformation.amazonaws.com",
+    "eventName": "CreateStack",
+    "awsRegion": "us-east-1",
+    "sourceIPAddress": "193.57.249.10",
+    "userAgent": "console.amazonaws.com",
+    "requestParameters": {
+      "stackName": "dummy-stack"
+    },
+    "responseElements": {
+      "stackId": "arn:aws:cloudformation:us-east-1:357627860126:stack/dummy-stack/1e855360-a193-11ea-9cc4-0e0e50fbc697"
+    },
+    "requestID": "3c121c61-4a9a-45bf-a5a4-fffd8b4845aa",
+    "eventID": "596813ad-d277-4ca9-835f-9d7265b3f4ec",
+    "eventType": "AwsApiCall",
+    "recipientAccountId": "357627860126"
+  }
+}

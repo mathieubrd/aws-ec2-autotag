@@ -1,14 +1,14 @@
-AWSTemplateFormatVersion: '2010-09-09'
+AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Description: >
   aws-owner-autotag
-  
+
 Globals:
   Function:
     Timeout: 60
 
 Resources:
-  Role:
+  EC2AutotagRole:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -31,12 +31,34 @@ Resources:
                   - ec2:DescribeVolumes
                 Resource: "*"
 
-  Function:
+  CloudFormationAutotagRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: CloudFormationCreateTags
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - cloudformation:TagResource
+                Resource: "*"
+
+  EC2AutotagFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: owner-autotag
       Handler: ec2.handler
-      Role: !GetAtt Role.Arn
+      Role: !GetAtt EC2AutotagRole.Arn
       Runtime: nodejs12.x
       Events:
         EC2CreateResourceEvent:
@@ -44,14 +66,37 @@ Resources:
             Pattern:
               detail:
                 eventName:
-                - RunInstances
-                - CreateNatGateway
-                - CreateSnapshot
-                - CreateImage
+                  - RunInstances
+                  - CreateNatGateway
+                  - CreateSnapshot
+                  - CreateImage
                 eventSource:
-                - ec2.amazonaws.com
+                  - ec2.amazonaws.com
               detail-type:
-              - AWS API Call via CloudTrail
+                - AWS API Call via CloudTrail
               source:
-              - aws.ec2
+                - aws.ec2
+          Type: CloudWatchEvent
+
+  CloudFormationAutotagFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: owner-autotag
+      Handler: cloudformation.handler
+      Role: !GetAtt CloudFormationAutotagRole.Arn
+      Runtime: nodejs12.x
+      Events:
+        EC2CreateResourceEvent:
+          Properties:
+            Pattern:
+              detail:
+                eventName:
+                  - CreateStack
+                  - UpdateStack
+                eventSource:
+                  - cloudformation.amazonaws.com
+              detail-type:
+                - AWS API Call via CloudTrail
+              source:
+                - aws.ec2
           Type: CloudWatchEvent
