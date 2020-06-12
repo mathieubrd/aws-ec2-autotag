@@ -56,7 +56,7 @@ Resources:
   EC2AutotagFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: owner-autotag
+      CodeUri: src
       Handler: ec2.handler
       Role: !GetAtt EC2AutotagRole.Arn
       Runtime: nodejs12.x
@@ -81,7 +81,7 @@ Resources:
   CloudFormationAutotagFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: owner-autotag
+      CodeUri: src
       Handler: cloudformation.handler
       Role: !GetAtt CloudFormationAutotagRole.Arn
       Runtime: nodejs12.x
